@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load widget_tweaks %}
 {% block content %}
 <div class="row">
   {% include "orderform/progress_bar.html" with address_status='complete' letter_status='active' payment_status='disabled' send_status='disabled' %}
@@ -8,14 +8,14 @@
   <div class="col-md-12">
     <div class="panel panel-default">
       <div class="panel-body">
-        <h1>Attach Letter</h1>
-        <form id="initial_address" action="." method="post">
+        <h1>Write Letter</h1>
+        <form id="initial_address" action="/draft-letter" method="post">
           {% csrf_token %}
-          {{ form.as_p }}
+          {% render_field form.letter %}
+          <button type="submit" class="btn btn-primary">Next: Review & Pay</button>
         </form>
       </div>
     </div>
-    <a href="/payment" class="btn btn-lg btn-primary">Save</a>
   </div>
 </div>
 {% endblock %}

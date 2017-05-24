@@ -19,7 +19,6 @@ def address_details(request):
         if form.is_valid():
             for item in form.cleaned_data:
                 request.session['address'][item] = form.cleaned_data[item]
-            print(request.session['address'])
             return HttpResponseRedirect(reverse('draft-letter'))
 
     if request.session['address']:
@@ -29,11 +28,22 @@ def address_details(request):
     return render(request, 'orderform/address_details.html', {'form': form, 'main_address': main_address})
 
 def draft_letter(request):
-    form = DocumentEditor()
+    initial = {'letter': request.session.get('letter', None)}
+    letter = initial['letter']
+    form = DocumentEditor(request.POST or None, initial=letter)
+    if request.method == 'POST':
+        if form.is_valid():
+            print('FORM VALID')
+            request.session['letter'] = form.cleaned_data
+            return HttpResponseRedirect(reverse('payment'))
     return render(request, 'orderform/draft_letter.html', {'form': form})
 
 def payment(request):
-    return render(request, 'orderform/payment.html')
+    if request.session['address']:
+        address = request.session['address']
+    if request.session['letter']:
+        letter = request.session['letter']
+    return render(request, 'orderform/payment.html', {'address': address, 'letter': letter})
 
 def submit_mail_order(request):
     form = AddressDetails(request.POST)

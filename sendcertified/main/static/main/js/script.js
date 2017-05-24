@@ -11,18 +11,25 @@ var componentForm = {
 function initAutocomplete() {
   // Create the autocomplete object, restricting the search to geographical
   // location types.
-  autocompleteFrom = new google.maps.places.Autocomplete(
-      /** @type {!HTMLInputElement} */(document.getElementById('from-field')),
-      {types: ['geocode']});
+  $('#from-field').focus(function(){
+    if(autocompleteFrom === undefined){
+      console.log('not defined');
+      autocompleteFrom = new google.maps.places.Autocomplete(
+        /** @type {!HTMLInputElement} */(document.getElementById('from-field')),
+        {types: ['geocode']});
+        autocompleteFrom.addListener('place_changed', fillInFromAddress);
+    }
+  })
 
-  autocompleteTo = new google.maps.places.Autocomplete(
-      /** @type {!HTMLInputElement} */(document.getElementById('to-field')),
-      {types: ['geocode']});
+  $('#to-field').focus(function(){
+    if(autocompleteTo === undefined){
+      autocompleteTo = new google.maps.places.Autocomplete(
+        /** @type {!HTMLInputElement} */(document.getElementById('to-field')),
+        {types: ['geocode']});
 
-  // When the user selects an address from the dropdown, populate the address
-  // fields in the form.
-  autocompleteFrom.addListener('place_changed', fillInFromAddress);
-  autocompleteTo.addListener('place_changed', fillInToAddress);
+        autocompleteTo.addListener('place_changed', fillInToAddress);
+    }
+  })
 }
 
 function fillInFromAddress() {

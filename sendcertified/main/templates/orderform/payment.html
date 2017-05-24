@@ -6,7 +6,29 @@
   {% include "orderform/progress_bar.html" with address_status='complete' letter_status='complete' payment_status='active' send_status='disabled' %}
 </div>
 <div class="row">
-  <div class="col-md-12">
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <h1>Review Order</h1>
+        <hr>
+        <p>From:</p>
+        <h4>{{address.sender_name}}</h4>
+        <h4>{{address.sender_unit_number}}</h4>
+        <h4>{{address.sender_street_number}} {{address.sender_route}}</h4>
+        <h4>{{address.sender_locality}}, {{address.sender_state}} {{address.sender_postal_code}}</h4>
+        <hr>
+        <p>To:</p>
+        <h4>{{address.recipient_name}}</h4>
+        <h4>{{address.recipient_unit_number}}</h4>
+        <h4>{{address.recipient_street_number}} {{address.recipient_route}}</h4>
+        <h4>{{address.recipient_locality}}, {{address.recipient_state}} {{address.recipient_postal_code}}</h4>
+        <hr>
+        <p>Message:</p>
+        <h4>{{letter.letter|safe}}</h4>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
     <div class="panel panel-default">
       <div class="panel-body">
         <h1>Payment</h1>
