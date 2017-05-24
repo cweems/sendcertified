@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block content %}
+<div class="row">
+  {% include "orderform/progress_bar.html" with address_status='active' letter_status='disabled' payment_status='disabled' send_status='disabled' %}
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <h1>Address Details</h1>
+        <p>We'll need just a few more details to send your letter.</p>
+        <br>
+        <form action="/address-details" method="post">
+          {% csrf_token %}
+          <div class="row">
+            <div class="col-md-6">
+              <div class="md-form">
+                {% render_field form.sender_name class+="form-control" %}
+                <label for="id_sender_name">Sender Name</label>
+              </div>
+              <div class="md-form">
+                {% render_field form.sender_unit class+="form-control" %}
+                <label for="id_sender_unit">Sender Apartment or Unit Number (optional)</label>
+              </div>
+              <h3>{{main_address.sender_street_number}} {{main_address.sender_route}}</h3>
+              <h3>{{main_address.sender_locality}} {{main_address.sender_state}}, {{main_address.sender_postal_code}}</h3>
+            </div>
+            <div class="col-md-6">
+              <div class="md-form">
+                {% render_field form.recipient_name class+="form-control" %}
+                <label for="id_recipient_name">Recipient Name</label>
+              </div>
+              <div class="md-form">
+                {% render_field form.recipient_unit class+="form-control" %}
+                <label for="id_recipient_unit">Recipient Apartment or Unit Number (optional)</label>
+              </div>
+              <h3>{{main_address.recipient_street_number}} {{main_address.recipient_route}}</h3>
+              <h3>{{main_address.recipient_locality}}, {{main_address.recipient_state}} {{main_address.recipient_postal_code}}</h3>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <button type="submit" class="btn btn-primary">Next: Attach Letter</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

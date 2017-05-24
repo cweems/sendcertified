@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+  {% include "orderform/progress_bar.html" with address_status='complete' letter_status='active' payment_status='disabled' send_status='disabled' %}
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <h1>Attach Letter</h1>
+        <form id="initial_address" action="." method="post">
+          {% csrf_token %}
+          {{ form.as_p }}
+        </form>
+      </div>
+    </div>
+    <a href="/payment" class="btn btn-lg btn-primary">Save</a>
+  </div>
+</div>
+{% endblock %}
