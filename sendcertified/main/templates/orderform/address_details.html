@@ -3,13 +3,13 @@
 
 {% block content %}
 <div class="row">
-  {% include "orderform/progress_bar.html" with address_status='active' letter_status='disabled' payment_status='disabled' send_status='disabled' %}
+  {% include "orderform/progress_bar.html" with address_status='active' letter_status='disabled' email_status='disabled' payment_status='disabled' %}
 </div>
 <div class="row">
   <div class="col-md-12">
-    <div class="panel panel-default">
-      <div class="panel-body">
-        <h1>Address Details</h1>
+    <div class="card">
+      <h3 class="card-header primary-color white-text">Address Details</h3>
+      <div class="card-block">
         <p>We'll need just a few more details to send your letter.</p>
         <br>
         <form action="/address-details" method="post">

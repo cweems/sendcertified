@@ -90,3 +90,15 @@ label {
 .mce-branding-powered-by {
   display: none;
 }
+
+.card-header {
+  padding: 1em;
+}
+
+.card-block {
+  padding: 2em;
+}
+
+.home-input {
+  margin-bottom: 0;
+}

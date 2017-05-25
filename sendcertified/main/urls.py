@@ -6,6 +6,9 @@ urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^address-details$', views.address_details, name='address-details'),
     url(r'^draft-letter$', views.draft_letter, name='draft-letter'),
+    url(r'^notifications$', views.notifications, name='notifications'),
     url(r'^payment$', views.payment, name='payment'),
     url(r'^submit_mail_order$', views.submit_mail_order, name='submit_mail_order'),
+    url(r'^logout$', views.logout_view, name='logout'),
+    url(r'^accounts/profile/$', views.profile, name='profile')
 ]

@@ -1,17 +1,23 @@
 <div class="row bs-wizard" style="border-bottom:0;">
-    <div class="col-xs-4 bs-wizard-step {{address_status}}">
+    <div class="col-xs-3 bs-wizard-step {{address_status}}">
       <div class="text-center bs-wizard-stepnum">Address</div>
       <div class="progress"><div class="progress-bar"></div></div>
       <a href="/address-details" class="bs-wizard-dot"></a>
     </div>
 
-    <div class="col-xs-4 bs-wizard-step {{letter_status}}"><!-- complete -->
+    <div class="col-xs-3 bs-wizard-step {{letter_status}}"><!-- complete -->
       <div class="text-center bs-wizard-stepnum">Attach Letter</div>
       <div class="progress"><div class="progress-bar"></div></div>
       <a href="/draft-letter" class="bs-wizard-dot"></a>
     </div>
 
-    <div class="col-xs-4 bs-wizard-step {{payment_status}}"><!-- complete -->
+    <div class="col-xs-3 bs-wizard-step {{email_status}}"><!-- complete -->
+      <div class="text-center bs-wizard-stepnum">Email</div>
+      <div class="progress"><div class="progress-bar"></div></div>
+      <a href="/notifications" class="bs-wizard-dot"></a>
+    </div>
+
+    <div class="col-xs-3 bs-wizard-step {{payment_status}}"><!-- complete -->
       <div class="text-center bs-wizard-stepnum">Review & Pay</div>
       <div class="progress"><div class="progress-bar"></div></div>
       <a href="/payment" class="bs-wizard-dot"></a>

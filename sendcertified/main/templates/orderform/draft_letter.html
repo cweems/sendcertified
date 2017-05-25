@@ -2,20 +2,24 @@
 {% load widget_tweaks %}
 {% block content %}
 <div class="row">
-  {% include "orderform/progress_bar.html" with address_status='complete' letter_status='active' payment_status='disabled' send_status='disabled' %}
+  {% include "orderform/progress_bar.html" with address_status='complete' letter_status='active' email_status='disabled' payment_status='disabled' %}
 </div>
 <div class="row">
   <div class="col-md-12">
-    <div class="panel panel-default">
-      <div class="panel-body">
-        <h1>Write Letter</h1>
-        <form id="initial_address" action="/draft-letter" method="post">
-          {% csrf_token %}
-          {% render_field form.letter %}
-          <button type="submit" class="btn btn-primary">Next: Review & Pay</button>
-        </form>
-      </div>
+
+    <!--Panel-->
+    <div class="card">
+        <h3 class="card-header primary-color white-text">Write Letter</h3>
+        <div class="card-block">
+          <form id="initial_address" action="/draft-letter" method="post">
+            {% csrf_token %}
+            {% render_field form.letter %}
+            <button type="submit" class="btn btn-primary">Next: Review & Pay</button>
+          </form>
+        </div>
     </div>
+    <!--/.Panel-->
+
   </div>
 </div>
 {% endblock %}

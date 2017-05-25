@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  {% include "orderform/progress_bar.html" with address_status='complete' letter_status='complete' email_status='active' payment_status='disabled' %}
+  <h1>Email</h1>
+  <form id="initial_address" action="/notifications" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Next: Review & Pay</button>
+  </form>
+{% endblock %}

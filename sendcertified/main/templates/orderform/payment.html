@@ -3,56 +3,56 @@
 
 {% block content %}
 <div class="row">
-  {% include "orderform/progress_bar.html" with address_status='complete' letter_status='complete' payment_status='active' send_status='disabled' %}
+  {% include "orderform/progress_bar.html" with address_status='complete' letter_status='complete' email_status='complete' payment_status='active' %}
 </div>
 <div class="row">
   <div class="col-md-6">
-    <div class="panel panel-default">
-      <div class="panel-body">
-        <h1>Review Order</h1>
-        <hr>
-        <p>From:</p>
-        <h4>{{address.sender_name}}</h4>
-        <h4>{{address.sender_unit_number}}</h4>
-        <h4>{{address.sender_street_number}} {{address.sender_route}}</h4>
-        <h4>{{address.sender_locality}}, {{address.sender_state}} {{address.sender_postal_code}}</h4>
-        <hr>
-        <p>To:</p>
-        <h4>{{address.recipient_name}}</h4>
-        <h4>{{address.recipient_unit_number}}</h4>
-        <h4>{{address.recipient_street_number}} {{address.recipient_route}}</h4>
-        <h4>{{address.recipient_locality}}, {{address.recipient_state}} {{address.recipient_postal_code}}</h4>
-        <hr>
-        <p>Message:</p>
-        <h4>{{letter.letter|safe}}</h4>
-      </div>
+
+    <!--Panel-->
+    <div class="card">
+        <h3 class="card-header primary-color white-text">Review Order</h3>
+        <div class="card-block">
+          <p>From:</p>
+          <h4>{{address_details.sender_name}}</h4>
+          <h4>{{address_details.sender_unit}}</h4>
+          <h4>{{address.sender_street_number}} {{address.sender_route}}</h4>
+          <h4>{{address.sender_locality}}, {{address.sender_state}} {{address.sender_postal_code}}</h4>
+          <hr>
+          <p>To:</p>
+          <h4>{{address_details.recipient_name}}</h4>
+          <h4>{{address_details.recipient_unit}}</h4>
+          <h4>{{address.recipient_street_number}} {{address.recipient_route}}</h4>
+          <h4>{{address.recipient_locality}}, {{address.recipient_state}} {{address.recipient_postal_code}}</h4>
+          <hr>
+          <p>Message:</p>
+          <h4>{{letter.letter|safe}}</h4>
+        </div>
     </div>
+    <!--/.Panel-->
   </div>
   <div class="col-md-6">
-    <div class="panel panel-default">
-      <div class="panel-body">
-        <h1>Payment</h1>
+    <div class="card">
+        <h3 class="card-header primary-color white-text">Payment</h3>
+        <div class="card-block">
+          <form action="/payment" method="post" id="payment-form">
+            <div class="form-row">
+              <label for="card-element">
+                Credit or debit card
+              </label>
+              <div id="card-element">
+                <!-- a Stripe Element will be inserted here. -->
+              </div>
 
-        <form action="/charge" method="post" id="payment-form">
-          <div class="form-row">
-            <label for="card-element">
-              Credit or debit card
-            </label>
-            <div id="card-element">
-              <!-- a Stripe Element will be inserted here. -->
+              <!-- Used to display form errors -->
+              <div id="card-errors" role="alert"></div>
             </div>
 
-            <!-- Used to display form errors -->
-            <div id="card-errors" role="alert"></div>
-          </div>
-
-          <button class="btn btn-primary">Submit Payment</button>
-        </form>
-      </div>
+            <button class="btn btn-primary">Submit Payment</button>
+          </form>
+        </div>
     </div>
   </div>
 </div>
-<script src="https://js.stripe.com/v3/"></script>
 <script type="text/javascript" src="{% static 'main/js/stripe.js' %}"></script>
 
 {% endblock %}
