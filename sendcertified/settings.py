@@ -27,7 +27,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG", False)
 
-ALLOWED_HOSTS = [".herokuapp.com"]
+ALLOWED_HOSTS = [".herokuapp.com", "localhost"]
 
 
 # Application definition
@@ -78,19 +78,18 @@ WSGI_APPLICATION = 'sendcertified.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
-if DEBUG:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'sendcertified',
-            'HOST': '127.0.0.1',
-            'PORT': '5432',
-        }
-    }
-else:
-    DATABASES = {}
-    DATABASES['default'] = dj_database_url.config(conn_max_age=600)
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'sendcertified',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
+    }
+}
+
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
