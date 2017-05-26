@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <div class="login-panel panel panel-default">
+        <div class="panel-body">
+          <h2>Login</h2>
+          <form method="post">
+            {% csrf_token %}
+            <div class="md-form">
+              {% render_field form.username %}
+              <label for="id_username">Email</label>
+            </div>
+            <div class="md-form">
+              {% render_field form.password %}
+              <label for="id_password">Password</label>
+            </div>
+            <button class="btn btn-primary" type="submit">Login</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

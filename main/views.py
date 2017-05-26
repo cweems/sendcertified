@@ -6,6 +6,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from .forms import AddressDetails, AddressForm, DocumentEditor, OrderEmail
 from .models import MailOrder, User
 import stripe
+
 # Create your views here.
 def index(request):
     initial = {'address': request.session.get('address', None)}
@@ -84,8 +85,7 @@ def payment(request):
     if request.user.is_authenticated():
         user = User.objects.get(id=request.user.id)
         email = user.username
-        print("EMAIL:")
-        print(email)
+
     else:
         email = request.session.get('email', None)
 
