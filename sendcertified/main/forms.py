@@ -52,3 +52,10 @@ class AddressDetails(forms.ModelForm):
             'recipient_name',
             'recipient_unit',
         ]
+
+class OrderEmail(forms.ModelForm):
+    class Meta:
+        model = MailOrder
+        fields = [
+            'email'
+        ]

@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from tinymce.models import HTMLField
 
 class MailOrder(models.Model):
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(User, blank=True, null=True)
 
     # Step 1: Landing Page Address
     sender_street_number = models.CharField(max_length=200)
@@ -32,6 +32,7 @@ class MailOrder(models.Model):
     letter = HTMLField()
 
     #Step 4: Payment & Delivery
+    email = models.CharField(max_length=200)
     payment_received = models.BooleanField(blank=True, default=False)
     printed = models.BooleanField(blank=True, default=False)
     delivered_to_post_office = models.BooleanField(blank=True, default=False)

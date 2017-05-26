@@ -12,15 +12,26 @@
     <div class="card">
         <h3 class="card-header primary-color white-text">Review Order</h3>
         <div class="card-block">
+          <p>Confirmation email:</p>
+          {% if user.is_authenticated %}
+            <h4>{{email}}</h4>
+          {% else %}
+            <h4>{{email.email}}</h4>
+          {% endif %}
+          <hr>
           <p>From:</p>
           <h4>{{address_details.sender_name}}</h4>
-          <h4>{{address_details.sender_unit}}</h4>
+          {% if address_details.sender_unit %}
+            <h4>{{address_details.sender_unit}}</h4>
+          {% endif %}
           <h4>{{address.sender_street_number}} {{address.sender_route}}</h4>
           <h4>{{address.sender_locality}}, {{address.sender_state}} {{address.sender_postal_code}}</h4>
           <hr>
           <p>To:</p>
           <h4>{{address_details.recipient_name}}</h4>
-          <h4>{{address_details.recipient_unit}}</h4>
+          {% if address_details.recipient_unit %}
+            <h4>{{address_details.recipient_unit}}</h4>
+          {% endif %}
           <h4>{{address.recipient_street_number}} {{address.recipient_route}}</h4>
           <h4>{{address.recipient_locality}}, {{address.recipient_state}} {{address.recipient_postal_code}}</h4>
           <hr>

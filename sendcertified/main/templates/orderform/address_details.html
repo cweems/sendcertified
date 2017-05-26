@@ -15,7 +15,7 @@
         <form action="/address-details" method="post">
           {% csrf_token %}
           <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-5">
               <div class="md-form">
                 {% render_field form.sender_name class+="form-control" %}
                 <label for="id_sender_name">Sender Name</label>
@@ -27,7 +27,7 @@
               <h3>{{main_address.sender_street_number}} {{main_address.sender_route}}</h3>
               <h3>{{main_address.sender_locality}} {{main_address.sender_state}}, {{main_address.sender_postal_code}}</h3>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-5 col-md-offset-1">
               <div class="md-form">
                 {% render_field form.recipient_name class+="form-control" %}
                 <label for="id_recipient_name">Recipient Name</label>

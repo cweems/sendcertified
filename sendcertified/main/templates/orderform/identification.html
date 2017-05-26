@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block content %}
+  {% include "orderform/progress_bar.html" with address_status='complete' letter_status='complete' email_status='active' payment_status='disabled' %}
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card">
+          <h3 class="card-header primary-color white-text">Have an account? Sign In</h3>
+          <div class="card-block">
+            <form id="returing-user" action="/login-returning-user" method="post">
+              {% csrf_token %}
+              {{ returning_user_form.as_p }}
+              <button type="submit" class="btn btn-primary">Sign In</button>
+            </form>
+          </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card">
+          <h3 class="card-header primary-color white-text">New? Continue as a Guest</h3>
+          <div class="card-block">
+            <form id="initial_address" action="/continue-as-guest" method="post">
+              {% csrf_token %}
+              {{ guest_user_form.as_p }}
+              <button type="submit" class="btn btn-primary">Continue as Guest</button>
+            </form>
+          </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

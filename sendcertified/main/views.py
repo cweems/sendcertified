@@ -2,9 +2,9 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth import login, logout, authenticate
-from django.contrib.auth.forms import UserCreationForm
-from .forms import AddressDetails, AddressForm, DocumentEditor
-from .models import MailOrder
+from django.contrib.auth.forms import AuthenticationForm
+from .forms import AddressDetails, AddressForm, DocumentEditor, OrderEmail
+from .models import MailOrder, User
 import stripe
 # Create your views here.
 def index(request):
@@ -38,50 +38,58 @@ def draft_letter(request):
     if request.method == 'POST':
         if form.is_valid():
             request.session['letter'] = form.cleaned_data
-            return HttpResponseRedirect(reverse('notifications'))
+            return HttpResponseRedirect(reverse('identification'))
     return render(request, 'orderform/draft_letter.html', {'form': form})
 
-def notifications(request):
+def login_returning_user(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(data=request.POST)
+        if form.is_valid():
+            username = request.POST['username']
+            password = request.POST['password']
+            user = authenticate(username=username, password=password)
+            login(request, user)
+            return HttpResponseRedirect(reverse('payment'))
+        else:
+            print('FORM INVALID')
+            return HttpResponseRedirect(reverse('identification'))
+
+def continue_as_guest(request):
+    if request.method == 'POST':
+        form = OrderEmail(request.POST)
+        if form.is_valid():
+            request.session['email'] = form.cleaned_data
+            return HttpResponseRedirect(reverse('payment'))
+
+        else:
+            return HttpResponseRedirect(reverse('identification'))
+
+def identification(request):
     if request.user.is_authenticated():
         return HttpResponseRedirect(reverse('payment'))
 
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
-            raw_password = form.cleaned_data.get('password1')
-            user = authenticate(username=username, password=raw_password)
-            login(request, user)
-            return HttpResponseRedirect(reverse('payment'))
-    else:
-        form = UserCreationForm()
-    return render(request, 'orderform/notifications.html', {'form': form})
+    returning_user_form = AuthenticationForm()
+    guest_user_form = OrderEmail()
+    return render(request, 'orderform/identification.html', {'returning_user_form': returning_user_form, 'guest_user_form': guest_user_form})
 
 def payment(request):
     if request.method == 'POST':
         # TODO - Implement Stripe Here
         return HttpResponseRedirect('/')
 
-    if request.session['address']:
-        address = request.session['address']
-        print(address)
+    address = request.session.get('address', None)
+    address_details = request.session.get('address_details', None)
+    letter = request.session.get('letter', None)
 
-    if request.session['address_details']:
-        address_details = request.session['address_details']
+    if request.user.is_authenticated():
+        user = User.objects.get(id=request.user.id)
+        email = user.username
+        print("EMAIL:")
+        print(email)
+    else:
+        email = request.session.get('email', None)
 
-    if request.session['letter']:
-        letter = request.session['letter']
-    return render(request, 'orderform/payment.html', {'address': address, 'address_details': address_details, 'letter': letter})
-
-def submit_mail_order(request):
-    form = AddressDetails(request.POST)
-    if form.is_valid():
-        order = form.save(commit = False)
-        order.user_id = request.user.id
-        order.save()
-
-    return HttpResponseRedirect('draft-letter')
+    return render(request, 'orderform/payment.html', {'address': address, 'address_details': address_details, 'letter': letter, 'email': email})
 
 def profile(request):
     if request.user.is_authenticated():
