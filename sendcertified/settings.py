@@ -27,6 +27,9 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 DEBUG = os.environ.get("DEBUG", False)
 ALLOWED_HOSTS = [".sendcertified.co", ".herokuapp.com", "localhost"]
 
+SECURE_SSL_REDIRECT = not DEBUG
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 STRIPE_KEY = os.environ.get("STRIPE_KEY")
 # Application definition
 
