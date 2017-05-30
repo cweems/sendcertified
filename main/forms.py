@@ -59,3 +59,6 @@ class OrderEmail(forms.ModelForm):
         fields = [
             'email'
         ]
+
+class Payment(forms.Form):
+    stripe_token = forms.CharField(label='Stripe token', max_length=100, widget=forms.HiddenInput())

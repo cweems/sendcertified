@@ -40,6 +40,16 @@ $(document).ready(function(){
     }
   });
 
+  function stripeTokenHandler(token) {
+    console.log('submitting token: ', token)
+    // Insert the token ID into the form so it gets submitted to the server
+    var form = document.getElementById('id_stripe_token');
+    form.setAttribute('value', token.id);
+
+    // Submit the form
+    $('#payment_token').submit();
+  }
+
   // Handle form submission
   var form = document.getElementById('payment-form');
   form.addEventListener('submit', function(event) {
@@ -55,5 +65,6 @@ $(document).ready(function(){
         stripeTokenHandler(result.token);
       }
     });
-  });  
+  });
+
 })

@@ -1,11 +1,11 @@
 var placeSearch, autocompleteFrom, autocompleteTo;
 var componentForm = {
-  street_number: ['id_sender_street_number', 'id_recipient_street_number'],
-  route: ['id_sender_route', 'id_recipient_route'],
-  locality: ['id_sender_locality', 'id_recipient_locality'],
-  administrative_area_level_1: ['id_sender_state', 'id_recipient_state'],
-  country: ['id_sender_country', 'id_recipient_country'],
-  postal_code: ['id_sender_postal_code', 'id_recipient_postal_code']
+  street_number: ['id_sender_street_number', 'id_recipient_street_number', 'short_name'],
+  route: ['id_sender_route', 'id_recipient_route', 'short_name'],
+  locality: ['id_sender_locality', 'id_recipient_locality', 'long_name'],
+  administrative_area_level_1: ['id_sender_state', 'id_recipient_state', 'short_name'],
+  country: ['id_sender_country', 'id_recipient_country', 'short_name'],
+  postal_code: ['id_sender_postal_code', 'id_recipient_postal_code', 'short_name']
 };
 
 function initAutocomplete() {
@@ -46,7 +46,8 @@ function fillInFromAddress() {
   for (var i = 0; i < place.address_components.length; i++) {
     var addressType = place.address_components[i].types[0];
     if (componentForm.hasOwnProperty(addressType)) {
-      var val = place.address_components[i]['short_name'];
+      var format = componentForm[addressType][2]
+      var val = place.address_components[i][format];
       document.getElementById(componentForm[addressType][0]).value = val;
     }
   }
@@ -67,7 +68,8 @@ function fillInToAddress() {
   for (var i = 0; i < place.address_components.length; i++) {
     var addressType = place.address_components[i].types[0];
     if (componentForm[addressType]) {
-      var val = place.address_components[i]['short_name'];
+      var format = componentForm[addressType][2]
+      var val = place.address_components[i][format];
       document.getElementById(componentForm[addressType][1]).value = val;
     }
   }

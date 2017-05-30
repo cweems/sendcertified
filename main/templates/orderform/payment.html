@@ -5,6 +5,15 @@
 <div class="row">
   {% include "orderform/progress_bar.html" with address_status='complete' letter_status='complete' email_status='complete' payment_status='active' %}
 </div>
+{% if errors %}
+  <div class="row">
+    <div class="col-md-12">
+      <div class="alert alert-danger text-center">
+        {{errors}}
+      </div>
+    </div>
+  </div>
+{% endif %}
 <div class="row">
   <div class="col-md-6">
 
@@ -45,7 +54,7 @@
     <div class="card">
         <h3 class="card-header primary-color white-text">Payment</h3>
         <div class="card-block">
-          <form action="/payment" method="post" id="payment-form">
+          <form id="payment-form">
             <div class="form-row">
               <label for="card-element">
                 Credit or debit card
@@ -62,6 +71,10 @@
           </form>
         </div>
     </div>
+    <form action="/payment" method="post" id="payment_token">
+      {% csrf_token %}
+      {{payment_form.as_p}}
+    </form>
   </div>
 </div>
 
