@@ -82,6 +82,8 @@ def payment(request):
             stripe.api_key = settings.STRIPE_KEY
             cleaned_form = form.cleaned_data
             stripe_token = cleaned_form['stripe_token']
+            print(settings.STRIPE_KEY)
+            print(request.session['email'])
             try:
                 charge = stripe.Charge.create(
                   amount=900,
@@ -93,9 +95,18 @@ def payment(request):
                 address = request.session['address']
                 address_details = request.session['address_details']
                 letter = request.session['letter']
-                email = request.session['email']
+                email = request.session['email']['email']
+
+                if request.user.is_authenticated():
+                    user = User.objects.get(id=request.user.id)
+                    email = user.email
+                else:
+                    email = request.session['email']['email']
+                    user = Null
 
                 order = MailOrder(
+                    user = user,
+
                     sender_street_number=address['sender_street_number'],
                     sender_route=address['sender_route'],
                     sender_locality=address['sender_locality'],
@@ -122,7 +133,10 @@ def payment(request):
                     payment_received=True,
 
                 )
+
+                print('got here 2')
                 order.save()
+                print('got here 3')
                 return HttpResponseRedirect('/confirmation')
 
             except stripe.error.CardError as e:
@@ -130,7 +144,7 @@ def payment(request):
               body = e.json_body
               err  = body['error']
 
-              print("Status is: %s" % e.http_status)
+              print("Status 1 is: %s" % e.http_status)
               print("Type is: %s" % err['type'])
               print("Code is: %s" % err['code'])
               # param is '' in this case
@@ -140,22 +154,28 @@ def payment(request):
               return render(request, 'orderform/payment.html', {'errors': err['message']})
             except stripe.error.RateLimitError as e:
               # Too many requests made to the API too quickly
+              print("Status 2 is: %s" % e)
               pass
             except stripe.error.InvalidRequestError as e:
+              print("Status 3 is: %s" % e)
               # Invalid parameters were supplied to Stripe's API
               pass
             except stripe.error.AuthenticationError as e:
+              print("Status 4 is: %s" % e)
               # Authentication with Stripe's API failed
               # (maybe you changed API keys recently)
               pass
             except stripe.error.APIConnectionError as e:
+              print("Status 5 is: %s" % e)
               # Network communication with Stripe failed
               pass
             except stripe.error.StripeError as e:
+              print("Status 6 is: %s" % e)
               # Display a very generic error to the user, and maybe send
               # yourself an email
               pass
             except Exception as e:
+              print("Status 7 is: %s" % e)
               # Something else happened, completely unrelated to Stripe
               pass
 

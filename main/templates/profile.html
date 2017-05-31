@@ -6,8 +6,23 @@
   <ul class="list-group">
     {% for order in orders %}
       <li class="list-group-item">
-        <p>From: {{order.sender_name}}</p>
-        <p>To: {{order.recipient_name}}</p>
+        <div class="row">
+          <div class="col-md-3">
+            <p>From: {{order.sender_name}}</p>
+          </div>
+          <div class="col-md-3">
+            <p>To: {{order.recipient_name}}</p>
+          </div>
+          <div class="col-md-3">
+            <p>Payment: {{order.payment_received}}</p>
+          </div>
+          <div class="col-md-3">
+            <p>Printed: {{order.printed}}</p>
+          </div>
+          <div class="col-md-3">
+            <p>Delivered to USPS: {{order.delivered_to_post_office}}</p>
+          </div>
+        </div>
       </li>
     {% endfor %}
   </ul>

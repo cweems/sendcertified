@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 from tinymce.models import HTMLField
 
 class MailOrder(models.Model):
+    class Meta:
+        app_label = 'main'
     user = models.ForeignKey(User, blank=True, null=True)
 
     # Step 1: Landing Page Address
@@ -36,3 +38,6 @@ class MailOrder(models.Model):
     payment_received = models.BooleanField(blank=True, default=False)
     printed = models.BooleanField(blank=True, default=False)
     delivered_to_post_office = models.BooleanField(blank=True, default=False)
+
+    def __str__(self):
+        return '%s %s' % (self.sender_name, self.recipient_name)

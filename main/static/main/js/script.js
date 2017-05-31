@@ -1,33 +1,32 @@
 var placeSearch, autocompleteFrom, autocompleteTo;
 var componentForm = {
-  street_number: ['id_sender_street_number', 'id_recipient_street_number', 'short_name'],
-  route: ['id_sender_route', 'id_recipient_route', 'short_name'],
-  locality: ['id_sender_locality', 'id_recipient_locality', 'long_name'],
-  administrative_area_level_1: ['id_sender_state', 'id_recipient_state', 'short_name'],
-  country: ['id_sender_country', 'id_recipient_country', 'short_name'],
-  postal_code: ['id_sender_postal_code', 'id_recipient_postal_code', 'short_name']
+street_number: ['id_sender_street_number', 'id_recipient_street_number', 'short_name'],
+route: ['id_sender_route', 'id_recipient_route', 'short_name'],
+locality: ['id_sender_locality', 'id_recipient_locality', 'long_name'],
+administrative_area_level_1: ['id_sender_state', 'id_recipient_state', 'short_name'],
+country: ['id_sender_country', 'id_recipient_country', 'short_name'],
+postal_code: ['id_sender_postal_code', 'id_recipient_postal_code', 'short_name']
 };
 
 function initAutocomplete() {
-  // Create the autocomplete object, restricting the search to geographical
-  // location types.
-  $('#from-field').focus(function(){
-    if(autocompleteFrom === undefined){
-      console.log('not defined');
-      autocompleteFrom = new google.maps.places.Autocomplete(
-        /** @type {!HTMLInputElement} */(document.getElementById('from-field')),
-        {types: ['geocode']});
-        autocompleteFrom.addListener('place_changed', fillInFromAddress);
-    }
-  })
+// Create the autocomplete object, restricting the search to geographical
+// location types.
+$('#from-field').focus(function(){
+if(autocompleteFrom === undefined){
+  autocompleteFrom = new google.maps.places.Autocomplete(
+    /** @type {!HTMLInputElement} */(document.getElementById('from-field')),
+    {types: ['geocode']});
+    autocompleteFrom.addListener('place_changed', fillInFromAddress);
+  }
+})
 
-  $('#to-field').focus(function(){
-    if(autocompleteTo === undefined){
-      autocompleteTo = new google.maps.places.Autocomplete(
-        /** @type {!HTMLInputElement} */(document.getElementById('to-field')),
-        {types: ['geocode']});
+$('#to-field').focus(function(){
+  if(autocompleteTo === undefined){
+    autocompleteTo = new google.maps.places.Autocomplete(
+      /** @type {!HTMLInputElement} */(document.getElementById('to-field')),
+      {types: ['geocode']});
 
-        autocompleteTo.addListener('place_changed', fillInToAddress);
+      autocompleteTo.addListener('place_changed', fillInToAddress);
     }
   })
 }

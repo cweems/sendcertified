@@ -52,7 +52,4 @@
     {% csrf_token %}
     {{ form.as_p }}
   </form>
-  <script type="text/javascript" src="{% static 'main/js/script.js' %}"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyACwqEdljAhyeOJJ5TqC4TBnLoKD8XKbdI&libraries=places&callback=initAutocomplete"
-        async defer></script>
 {% endblock %}
