@@ -37,6 +37,7 @@ STRIPE_KEY = os.environ.get("STRIPE_KEY")
 # Application definition
 
 INSTALLED_APPS = [
+    'anymail',
     'main.apps.MainConfig',
     'widget_tweaks',
     'tinymce',
@@ -113,6 +114,13 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+ANYMAIL = {
+    # (exact settings here depend on your ESP...)
+    "MAILGUN_API_KEY": "<your Mailgun key>",
+    "MAILGUN_SENDER_DOMAIN": 'mg.example.com',  # your Mailgun domain, if needed
+}
+EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"  # or sendgrid.EmailBackend, or...
+DEFAULT_FROM_EMAIL = "no-reply@sendcertified.co"
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/

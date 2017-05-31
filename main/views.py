@@ -76,14 +76,12 @@ def identification(request):
     return render(request, 'orderform/identification.html', {'returning_user_form': returning_user_form, 'guest_user_form': guest_user_form})
 
 def payment(request):
-    form = Payment(request.POST)
+    form = Payment()
     if request.method == 'POST':
         if form.is_valid():
             stripe.api_key = settings.STRIPE_KEY
             cleaned_form = form.cleaned_data
             stripe_token = cleaned_form['stripe_token']
-            print(settings.STRIPE_KEY)
-            print(request.session['email'])
             try:
                 charge = stripe.Charge.create(
                   amount=900,
