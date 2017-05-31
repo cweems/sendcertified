@@ -76,7 +76,7 @@ def identification(request):
     return render(request, 'orderform/identification.html', {'returning_user_form': returning_user_form, 'guest_user_form': guest_user_form})
 
 def payment(request):
-    form = Payment()
+    form = Payment(request.POST)
     if request.method == 'POST':
         if form.is_valid():
             stripe.api_key = settings.STRIPE_KEY
@@ -93,14 +93,12 @@ def payment(request):
                 address = request.session['address']
                 address_details = request.session['address_details']
                 letter = request.session['letter']
-                email = request.session['email']['email']
+                email = request.session.get('email', None)
 
                 if request.user.is_authenticated():
                     user = User.objects.get(id=request.user.id)
-                    email = user.email
                 else:
-                    email = request.session['email']['email']
-                    user = Null
+                    user = None
 
                 order = MailOrder(
                     user = user,
