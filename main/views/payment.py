@@ -5,9 +5,10 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from ..forms import Payment
 from ..models import MailOrder, User
+from django.core.mail import send_mail
 
 def payment(request):
-    form = Payment(request.POST)
+    form = Payment(request.POST or None)
     if request.method == 'POST':
         if form.is_valid():
             stripe.api_key = settings.STRIPE_KEY
@@ -54,17 +55,20 @@ def payment(request):
                     recipient_name=address_details['recipient_name'],
                     recipient_unit=address_details['recipient_unit'],
 
-                    letter=letter,
+                    letter=letter['letter'],
 
-                    email=email,
+                    email=email['email'],
                     payment_received=True,
 
                 )
-
-                print('got here 2')
                 order.save()
-                print('got here 3')
-                return redirect('/confirmation')
+                order_number = str(order.order_number)
+                send_mail("We received a new order!", "The order number is: " + order_number,
+                    "Sendcertified <no-reply@sendcertified.co>", ["charlie.weems@gmail.com"])
+
+                send_mail("Order received!", "Thanks for using Sendcertified. Your order number is: " + order_number,
+                    "Sendcertified <no-reply@sendcertified.co>", [email['email']])
+                return redirect('/confirmation/' + order_number)
 
             except stripe.error.CardError as e:
               # Since it's a decline, stripe.error.CardError will be caught
@@ -82,29 +86,29 @@ def payment(request):
             except stripe.error.RateLimitError as e:
               # Too many requests made to the API too quickly
               print("Status 2 is: %s" % e)
-              pass
+              return render(request, 'orderform/payment.html', {'errors': "We're sorry, there's been an error with our payment system. Your card was not charged. Please try again in a bit."})
             except stripe.error.InvalidRequestError as e:
               print("Status 3 is: %s" % e)
               # Invalid parameters were supplied to Stripe's API
-              pass
+              return render(request, 'orderform/payment.html', {'errors': "We're sorry, there's been an error with our payment system. Your card was not charged. Please try again in a bit."})
             except stripe.error.AuthenticationError as e:
               print("Status 4 is: %s" % e)
               # Authentication with Stripe's API failed
               # (maybe you changed API keys recently)
-              pass
+              return render(request, 'orderform/payment.html', {'errors': "We're sorry, there's been an error with our payment system. Your card was not charged. Please try again in a bit."})
             except stripe.error.APIConnectionError as e:
               print("Status 5 is: %s" % e)
               # Network communication with Stripe failed
-              pass
+              return render(request, 'orderform/payment.html', {'errors': "We're sorry, there's been an error with our payment system. Your card was not charged. Please try again in a bit."})
             except stripe.error.StripeError as e:
               print("Status 6 is: %s" % e)
               # Display a very generic error to the user, and maybe send
               # yourself an email
-              pass
+              return render(request, 'orderform/payment.html', {'errors': "We're sorry, there's been an error with our payment system. Your card was not charged. Please try again in a bit."})
             except Exception as e:
               print("Status 7 is: %s" % e)
               # Something else happened, completely unrelated to Stripe
-              pass
+              return render(request, 'orderform/payment.html', {'errors': "We're sorry, there's been an error with our payment system. Your card was not charged. Please try again in a bit."})
 
     address = request.session.get('address', None)
     address_details = request.session.get('address_details', None)
@@ -120,5 +124,9 @@ def payment(request):
     return render(request, 'orderform/payment.html', {'address': address, 'address_details': address_details, 'letter': letter, 'email': email, 'payment_form': form})
 
 
-def confirmation(request):
-    return render(request, 'orderform/confirmation.html')
+def confirmation(request, uuid):
+    try:
+        order = MailOrder.objects.get(order_number=uuid)
+        return render(request, 'orderform/confirmation.html', {'order': order})
+    except:
+        return redirect('/')

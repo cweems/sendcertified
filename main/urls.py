@@ -12,7 +12,7 @@ urlpatterns = [
     url(r'^login-returning-user$', views.login_returning_user, name='login_returning_user'),
     url(r'^continue-as-guest$', views.continue_as_guest, name='continue_as_guest'),
     url(r'^payment$', views.payment, name='payment'),
-    url(r'^confirmation$', views.confirmation, name='confirmation'),
+    url(r'^confirmation/(?P<uuid>[0-9a-f]{8}\-[0-9a-f]{4}\-4[0-9a-f]{3}\-[89ab][0-9a-f]{3}\-[0-9a-f]{12})/$', views.confirmation, name='confirmation'),
     url(r'^logout$', views.logout_view, name='logout'),
     url('^register/', CreateView.as_view(
             template_name='register.html',

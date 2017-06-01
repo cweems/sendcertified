@@ -1,3 +1,4 @@
+import uuid
 from django.db import models
 from django.contrib.auth.models import User
 from tinymce.models import HTMLField
@@ -5,6 +6,8 @@ from tinymce.models import HTMLField
 class MailOrder(models.Model):
     class Meta:
         app_label = 'main'
+
+    order_number = models.UUIDField(default=uuid.uuid4, editable=False)
     user = models.ForeignKey(User, blank=True, null=True)
 
     # Step 1: Landing Page Address

@@ -4,12 +4,60 @@
   <div class="col-md-12">
 
     <!--Panel-->
-    <div class="card">
-        <h3 class="card-header primary-color white-text">Confirmation</h3>
+    <h1 class="text-center"><i class="glyphicon glyphicon-ok-sign"></i></h1>
+    <h2 class="text-center">Success! We've received your order.</h2>
+    <p class="text-center">A confirmation email was sent to {{order.email}}.</p>
+  </div>
+  <div class="col-md-12">
+    <div class="row bs-wizard" style="border-bottom:0;">
+        <div class="col-xs-4 bs-wizard-step {% if order.printed is True %} complete {% else %} active {% endif %}"><!-- complete -->
+          <div class="text-center bs-wizard-stepnum">Order Received by Sendcertified</div>
+          <div class="progress"><div class="progress-bar"></div></div>
+          <a href="/identification" class="bs-wizard-dot"></a>
+        </div>
 
+        <div class="col-xs-4 bs-wizard-step {% if order.printed is True and order.delivered_to_post_office is True %} complete {% elif order.printed is True %} active {% else %} disabled {% endif %}">
+          <div class="text-center bs-wizard-stepnum">Letter Printed</div>
+          <div class="progress"><div class="progress-bar"></div></div>
+          <a href="/address-details" class="bs-wizard-dot"></a>
+        </div>
+
+        <div class="col-xs-4 bs-wizard-step {% if order.printed is True and order.delivered_to_post_office is True %} active {% else %} disabled {% endif %}"><!-- complete -->
+          <div class="text-center bs-wizard-stepnum">Delivered to USPS</div>
+          <div class="progress"><div class="progress-bar"></div></div>
+          <a href="/draft-letter" class="bs-wizard-dot"></a>
+        </div>
     </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card">
+        <h3 class="card-header primary-color white-text">Your Order</h3>
+        <div class="card-block">
+          <div class="row">
+              <p><strong>From:</strong> {{order.sender_locality}}, {{order.sender_state}}</p>
+              <p><strong>To:</strong> {{order.recipient_locality}}, {{order.recipient_state}}</p>
+              <p><strong>Estimated Delivery to USPS:</strong> 1 day</p>
+              <p><strong>Sendcertified confirmation number:</strong> {{order.order_number}}</p>
+              <p><strong>USPS Tracking Number:</strong> Pending</p>
+              <p><strong>Cost:</strong> $9.61</p>
+          </div>
+        </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card">
+        <h3 class="card-header primary-color white-text">What Happens Next</h3>
+        <div class="card-block">
+          <div class="row">
+              <p>We've received your order and will be shipping it shortly. Here's what happens next:</p>
+              <p><span class="badge badge-primary badge-pill">1</span> We print and deliver your certified mail to the post office.</p>
+              <p><span class="badge badge-primary badge-pill">2</span> Once your letter is posted, we'll email you your USPS confirmation number.</p>
+              <p><span class="badge badge-primary badge-pill">3</span> The postal service will deliver your letter in 3-5 days.</p>
+          </div>
+        </div>
+    </div>
+  </div>
     <!--/.Panel-->
 
-  </div>
 </div>
 {% endblock %}
