@@ -11,16 +11,18 @@ def payment(request):
     form = Payment(request.POST or None)
     if request.method == 'POST':
         if form.is_valid():
-            stripe.api_key = settings.STRIPE_KEY
-            cleaned_form = form.cleaned_data
-            stripe_token = cleaned_form['stripe_token']
+
+            # Temporarily disable Stripe
+            #stripe.api_key = settings.STRIPE_KEY
+            #cleaned_form = form.cleaned_data
+            #stripe_token = cleaned_form['stripe_token']
             try:
-                charge = stripe.Charge.create(
-                  amount=900,
-                  currency="usd",
-                  description="Example charge",
-                  source=stripe_token,
-                )
+                #charge = stripe.Charge.create(
+                  #amount=900,
+                  #currency="usd",
+                  #description="Example charge",
+                  #source=stripe_token,
+                #)
 
                 address = request.session['address']
                 address_details = request.session['address_details']
@@ -58,7 +60,7 @@ def payment(request):
                     letter=letter['letter'],
 
                     email=email['email'],
-                    payment_received=True,
+                    payment_received=False,
 
                 )
                 order.save()

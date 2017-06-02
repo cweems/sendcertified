@@ -1,0 +1,35 @@
+
+<div class="col-md-12">
+  <hr>
+<h2 class="text-center">How it Works</h2>
+<div class="row bs-wizard" style="border-bottom:0;">
+    <div class="col-xs-3 bs-wizard-step {{address_status}}">
+      <div class="text-center bs-wizard-stepnum">Address Your Letter</div>
+      <div class="progress"><div class="progress-bar"></div></div>
+      <a href="/address-details" class="bs-wizard-dot"></a>
+      <div class="bs-wizard-info text-center">Tell us where you want to send your letter.</div>
+    </div>
+
+    <div class="col-xs-3 bs-wizard-step {{letter_status}}"><!-- complete -->
+      <div class="text-center bs-wizard-stepnum">Draft Your Letter</div>
+      <div class="progress"><div class="progress-bar"></div></div>
+      <a href="/draft-letter" class="bs-wizard-dot"></a>
+      <div class="bs-wizard-info text-center">Upload a PDF, use one of our templates, or start from scratch.</div>
+    </div>
+
+    <div class="col-xs-3 bs-wizard-step {{email_status}}"><!-- complete -->
+      <div class="text-center bs-wizard-stepnum">Pay by Credit Card</div>
+      <div class="progress"><div class="progress-bar"></div></div>
+      <a href="/identification" class="bs-wizard-dot"></a>
+      <div class="bs-wizard-info text-center">Pay with any credit or debit card through Stripe – we never store your card information.</div>
+    </div>
+
+    <div class="col-xs-3 bs-wizard-step {{payment_status}}"><!-- complete -->
+      <div class="text-center bs-wizard-stepnum">We send your certified mail.</div>
+      <div class="progress"><div class="progress-bar"></div></div>
+      <a href="/payment" class="bs-wizard-dot"></a>
+      <div class="bs-wizard-info text-center">We print and deliver your certified mail to the post office.</div>
+    </div>
+</div>
+
+</div>

@@ -1,4 +1,4 @@
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.views.generic.edit import CreateView
 from django.contrib.auth.forms import UserCreationForm
 
@@ -19,5 +19,6 @@ urlpatterns = [
             form_class=UserCreationForm,
             success_url='/'
     )),
+    url(r'^accounts/', include('registration.backends.simple.urls')),
     url(r'^accounts/profile/$', views.profile, name='profile')
 ]
