@@ -24,8 +24,7 @@ def payment(request):
                   #source=stripe_token,
                 #)
 
-                address = request.session['address']
-                address_details = request.session['address_details']
+                cleaned_address = request.session['cleaned_address']
                 letter = request.session['letter']
                 email = request.session.get('email', None)
 
@@ -37,25 +36,23 @@ def payment(request):
                 order = MailOrder(
                     user = user,
 
-                    sender_street_number=address['sender_street_number'],
-                    sender_route=address['sender_route'],
-                    sender_locality=address['sender_locality'],
-                    sender_state=address['sender_state'],
-                    sender_country=address['sender_country'],
-                    sender_postal_code=address['sender_postal_code'],
+                    sender_street_number=cleaned_address['sender_street_number'],
+                    sender_route=cleaned_address['sender_route'],
+                    sender_locality=cleaned_address['sender_locality'],
+                    sender_state=cleaned_address['sender_state'],
+                    sender_postal_code=cleaned_address['sender_postal_code'],
 
-                    recipient_street_number=address['recipient_street_number'],
-                    recipient_route=address['recipient_route'],
-                    recipient_locality=address['recipient_locality'],
-                    recipient_state=address['recipient_state'],
-                    recipient_country=address['recipient_country'],
-                    recipient_postal_code=address['recipient_postal_code'],
+                    recipient_street_number=cleaned_address['recipient_street_number'],
+                    recipient_route=cleaned_address['recipient_route'],
+                    recipient_locality=cleaned_address['recipient_locality'],
+                    recipient_state=cleaned_address['recipient_state'],
+                    recipient_postal_code=cleaned_address['recipient_postal_code'],
 
-                    sender_name=address_details['sender_name'],
-                    sender_unit=address_details['sender_unit'],
+                    sender_name=cleaned_address['sender_name'],
+                    sender_unit=cleaned_address['sender_unit'],
 
-                    recipient_name=address_details['recipient_name'],
-                    recipient_unit=address_details['recipient_unit'],
+                    recipient_name=cleaned_address['recipient_name'],
+                    recipient_unit=cleaned_address['recipient_unit'],
 
                     letter=letter['letter'],
 
@@ -112,8 +109,7 @@ def payment(request):
               # Something else happened, completely unrelated to Stripe
               return render(request, 'orderform/payment.html', {'errors': "We're sorry, there's been an error with our payment system. Your card was not charged. Please try again in a bit."})
 
-    address = request.session.get('address', None)
-    address_details = request.session.get('address_details', None)
+    cleaned_address = request.session.get('cleaned_address', None)
     letter = request.session.get('letter', None)
 
     if request.user.is_authenticated():
@@ -123,7 +119,7 @@ def payment(request):
     else:
         email = request.session.get('email', None)
 
-    return render(request, 'orderform/payment.html', {'address': address, 'address_details': address_details, 'letter': letter, 'email': email, 'payment_form': form})
+    return render(request, 'orderform/payment.html', {'cleaned_address': cleaned_address, 'letter': letter, 'email': email, 'payment_form': form})
 
 
 def confirmation(request, uuid):

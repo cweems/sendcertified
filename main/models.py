@@ -15,14 +15,12 @@ class MailOrder(models.Model):
     sender_route = models.CharField(max_length=200)
     sender_locality = models.CharField(max_length=200)
     sender_state = models.CharField(max_length=200)
-    sender_country = models.CharField(max_length=200)
     sender_postal_code = models.CharField(max_length=200)
 
     recipient_street_number = models.CharField(max_length=200)
     recipient_route = models.CharField(max_length=200)
     recipient_locality = models.CharField(max_length=200)
     recipient_state = models.CharField(max_length=200)
-    recipient_country = models.CharField(max_length=200)
     recipient_postal_code = models.CharField(max_length=200)
 
     #Step 2: Additional Details

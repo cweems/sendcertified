@@ -4,7 +4,6 @@ street_number: ['id_sender_street_number', 'id_recipient_street_number', 'short_
 route: ['id_sender_route', 'id_recipient_route', 'short_name'],
 locality: ['id_sender_locality', 'id_recipient_locality', 'long_name'],
 administrative_area_level_1: ['id_sender_state', 'id_recipient_state', 'short_name'],
-country: ['id_sender_country', 'id_recipient_country', 'short_name'],
 postal_code: ['id_sender_postal_code', 'id_recipient_postal_code', 'short_name']
 };
 

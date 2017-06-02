@@ -23,8 +23,40 @@
                 {% render_field form.sender_unit class+="form-control" %}
                 <label for="id_sender_unit">Sender Apartment or PO Box # (optional)</label>
               </div>
-              <h3>{{main_address.sender_street_number}} {{main_address.sender_route}}</h3>
-              <h3>{{main_address.sender_locality}}, {{main_address.sender_state}} {{main_address.sender_postal_code}}</h3>
+              <div class="row">
+                <div class="col-xs-3">
+                  <div class="md-form">
+                    {% render_field form.sender_street_number class+="form-control" %}
+                    <label for="id_sender_unit">Address #</label>
+                  </div>
+                </div>
+                <div class="col-xs-9">
+                  <div class="md-form">
+                    {% render_field form.sender_route class+="form-control" %}
+                    <label for="id_sender_unit">Street</label>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-6">
+                  <div class="md-form">
+                    {% render_field form.sender_locality class+="form-control" %}
+                    <label for="id_sender_unit">City</label>
+                  </div>
+                </div>
+                <div class="col-xs-2">
+                  <div class="md-form">
+                    {% render_field form.sender_state class+="form-control" %}
+                    <label for="id_sender_unit">State</label>
+                  </div>
+                </div>
+                <div class="col-xs-4">
+                  <div class="md-form">
+                    {% render_field form.sender_postal_code class+="form-control" %}
+                    <label for="id_sender_unit">Zip Code</label>
+                  </div>
+                </div>
+              </div>
             </div>
             <div class="col-md-5 col-md-offset-1">
               <h3>To:</h3>
@@ -36,13 +68,45 @@
                 {% render_field form.recipient_unit class+="form-control" %}
                 <label for="id_recipient_unit">Recipient Apartment or PO Box # (optional)</label>
               </div>
-              <h3>{{main_address.recipient_street_number}} {{main_address.recipient_route}}</h3>
-              <h3>{{main_address.recipient_locality}}, {{main_address.recipient_state}} {{main_address.recipient_postal_code}}</h3>
+              <div class="row">
+                <div class="col-xs-3">
+                  <div class="md-form">
+                    {% render_field form.recipient_street_number class+="form-control" %}
+                    <label for="id_recipient_unit">Address #</label>
+                  </div>
+                </div>
+                <div class="col-xs-9">
+                  <div class="md-form">
+                    {% render_field form.recipient_route class+="form-control" %}
+                    <label for="id_recipient_unit">Street</label>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-6">
+                  <div class="md-form">
+                    {% render_field form.recipient_locality class+="form-control" %}
+                    <label for="id_recipient_unit">City</label>
+                  </div>
+                </div>
+                <div class="col-xs-2">
+                  <div class="md-form">
+                    {% render_field form.recipient_state class+="form-control" %}
+                    <label for="id_recipient_unit">State</label>
+                  </div>
+                </div>
+                <div class="col-xs-4">
+                  <div class="md-form">
+                    {% render_field form.recipient_postal_code class+="form-control" %}
+                    <label for="id_recipient_unit">Zip Code</label>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
           <div class="row">
-            <div class="col-md-12">
-              <button type="submit" class="btn btn-primary">Next: Attach Letter</button>
+            <div class="col-md-12 text-center">
+              <button type="submit" class="btn btn-lg btn-primary">Next: Attach Letter</button>
             </div>
           </div>
         </form>
