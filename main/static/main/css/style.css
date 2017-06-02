@@ -45,6 +45,10 @@ hr.homepage-divider {
   margin-bottom: 60px;
 }
 
+.no-margin p {
+  margin-bottom: 0;
+}
+
 .login-panel {
   margin-top: 100px;
 }

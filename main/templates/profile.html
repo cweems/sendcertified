@@ -2,28 +2,68 @@
 {% load staticfiles %}
 {% block content %}
 
-<h1>Orders</h1>
-  <ul class="list-group">
-    {% for order in orders %}
-      <li class="list-group-item">
-        <div class="row">
-          <div class="col-md-3">
-            <p>From: {{order.sender_name}}</p>
-          </div>
-          <div class="col-md-3">
-            <p>To: {{order.recipient_name}}</p>
-          </div>
-          <div class="col-md-3">
-            <p>Payment: {{order.payment_received}}</p>
-          </div>
-          <div class="col-md-3">
-            <p>Printed: {{order.printed}}</p>
-          </div>
-          <div class="col-md-3">
-            <p>Delivered to USPS: {{order.delivered_to_post_office}}</p>
-          </div>
-        </div>
-      </li>
-    {% endfor %}
-  </ul>
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+        <h3 class="card-header primary-color white-text">Your Orders</h3>
+          <ul>
+            {% for order in orders %}
+              <li class="card-block">
+                <div class="row">
+                  <div class="col-xs-6 col-md-2 no-margin">
+                    <p><strong>From:</strong></p>
+                    <p>{{order.sender_name}}</p>
+                    {% if order.sender_unit %}
+                      <p>{{order.sender_unit}}</p>
+                    {% endif %}
+                    <p>{{order.sender_street_number}} {{order.sender_route}}</p>
+                    <p>{{order.sender_locality}}, {{order.sender_state}} {{order.sender_postal_code}}</p>
+                  </div>
+                  <div class="col-xs-6 col-md-2 no-margin">
+                    <p><strong>To:</strong></p>
+                    <p>{{order.recipient_name}}</p>
+                    {% if order.recipient_unit %}
+                      <p>{{order.recipient_unit}}</p>
+                    {% endif %}
+                    <p>{{order.recipient_street_number}} {{order.recipient_route}}</p>
+                    <p>{{order.recipient_locality}}, {{order.recipient_state}} {{order.recipient_postal_code}}</p>
+                  </div>
+                  <div class="col-xs-12 hidden-md hidden-lg">
+                    <hr>
+                  </div>
+                  <div class="col-xs-4 col-md-2">
+                    <p class="text-center"><strong>Payment:</strong></p>
+                    <h3 class="text-green text-center"><i class="glyphicon glyphicon-ok-circle"></i></h3>
+                  </div>
+                  <div class="col-xs-4 col-md-2">
+                    <p class="text-center"><strong>Printed:</strong></p>
+                    <h3 class="text-center"><i class="glyphicon {% if order.printed == True %} text-green glyphicon-ok-circle {% else %} text-muted glyphicon-time {% endif %}"></i></h3>
+                  </div>
+                  <div class="col-xs-4 col-md-2">
+                    <p class="text-center"><strong>Delivered to USPS:</strong></p>
+                    <h3 class="text-center"><i class="glyphicon {% if order.delivered_to_post_office == True %} text-green glyphicon-ok-circle {% else %} text-muted glyphicon-time {% endif %}"></i></h3>
+                  </div>
+                  <div class="col-xs-12 col-md-1">
+                    <button data-toggle="collapse" class="btn btn-primary" data-target="#letter-{{ forloop.counter }}">View Letter</button>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-offset-2 col-lg-8">
+                    <div id="letter-{{ forloop.counter }}" class="collapse">
+                      <br>
+                      <div class="panel panel-default">
+                        <div class="panel-body">
+                          {{order.letter|safe}}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <hr>
+            {% endfor %}
+          </ul>
+      </div>
+  </div>
+</div>
 {% endblock %}
