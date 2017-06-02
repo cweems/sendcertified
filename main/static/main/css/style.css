@@ -34,8 +34,15 @@ label {
   font-weight: 300;
 }
 
-.main-heading {
-  margin-top: 160px;
+@media screen and (min-width: 480px) {
+  .main-heading {
+    margin-top: 160px;
+  }
+}
+
+hr.homepage-divider {
+  margin-top: 60px;
+  margin-bottom: 60px;
 }
 
 .login-panel {

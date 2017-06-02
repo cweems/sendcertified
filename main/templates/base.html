@@ -23,16 +23,22 @@
               <a class="navbar-brand" style="padding-top: 5px;" href="/">
                 <img alt="Brand" class="brand-icon" height="40" src="{% static 'main/img/icon.png' %}"><span class="brand-name"> Sendcertified</span>
               </a>
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span> Menu<span>
+              </button>
             </div>
-            <ul class="nav navbar-nav navbar-right">
-              {% if user.is_authenticated %}
-                <li><a href="/accounts/profile/">Account</a></li>
-                <li><a href="/logout">Logout</a></li>
-              {% else %}
-                <li><a href="/login">Login</a></li>
-                <li><a href="/accounts/register">Register</a></li>
-              {% endif %}
-            </ul>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              <ul class="nav navbar-nav navbar-right">
+                {% if user.is_authenticated %}
+                  <li><a href="/accounts/profile/">Account</a></li>
+                  <li><a href="/logout">Logout</a></li>
+                {% else %}
+                  <li><a href="/login">Login</a></li>
+                  <li><a href="/accounts/register">Register</a></li>
+                {% endif %}
+              </ul>
+            </div>
           </div>
         </nav>
       </header>
@@ -44,6 +50,7 @@
       {% include 'footer.html' %}
     </body>
     <script type="text/javascript" src="{% static 'main/js/jquery-3.1.1.min.js' %}"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script type="text/javascript" src="{% static 'main/js/mdb.min.js' %}"></script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyACwqEdljAhyeOJJ5TqC4TBnLoKD8XKbdI&libraries=places&callback=initAutocomplete"></script>
     <script type="text/javascript" src="{% static 'main/js/script.js' %}"></script>
