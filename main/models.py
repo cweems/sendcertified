@@ -41,6 +41,19 @@ class MailOrder(models.Model):
     payment_received = models.BooleanField(blank=True, default=False)
     printed = models.BooleanField(blank=True, default=False)
     delivered_to_post_office = models.BooleanField(blank=True, default=False)
+    usps_confirmation_number = models.CharField(max_length=200, blank=True)
+
+    def save(self):
+        try:
+            current_order = MailOrder.objects.get(pk=self.id)
+            if current_order.printed == False and self.printed == True:
+                print('Sending printed notification')
+            if current_order.delivered_to_post_office == False and self.delivered_to_post_office == True:
+                print('Sending delivery notification')
+        except:
+            pass
+        super(MailOrder, self).save()
+
 
     def __str__(self):
         return '%s %s' % (self.sender_name, self.recipient_name)

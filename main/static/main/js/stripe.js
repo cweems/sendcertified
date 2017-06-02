@@ -55,7 +55,8 @@ $(document).ready(function(){
   var form = document.getElementById('payment-form');
   form.addEventListener('submit', function(event) {
     event.preventDefault();
-
+    // Temporarily disable Stripe
+    /*
     stripe.createToken(card).then(function(result) {
       if (result.error) {
         // Inform the user if there was an error
@@ -65,7 +66,8 @@ $(document).ready(function(){
         // Send the token to your server
         stripeTokenHandler(result.token);
       }
-    });
+    });*/
+    stripeTokenHandler('test');
   });
 
 })
