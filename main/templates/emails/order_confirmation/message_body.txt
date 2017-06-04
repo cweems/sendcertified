@@ -1,0 +1,14 @@
+Thanks for using Sendcertified!
+
+Your order number is: {{ order_number }}
+You can track your order by visiting https://www.sendcertified.co/confirmation/{{ order_number }}
+
+Here's what happens next:
+
+1. You'll receive an email within the next few hours when your order is printed.
+2. We'll deliver your order to the post office within one business day.
+3. Once your letter has been accepted by the post office, we'll send you your USPS tracking number.
+
+Sincerely,
+
+The Sendcertified Team

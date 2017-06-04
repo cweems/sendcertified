@@ -7,6 +7,8 @@ from ..forms import Payment
 from ..models import MailOrder, User
 from django.core.mail import send_mail
 
+from .email.order_confirmation import send_confirmation
+
 def payment(request):
     form = Payment(request.POST or None)
     if request.method == 'POST':
@@ -62,11 +64,10 @@ def payment(request):
                 )
                 order.save()
                 order_number = str(order.order_number)
+                send_confirmation(email['email'], order_number)
                 send_mail("We received a new order!", "The order number is: " + order_number,
                     "Sendcertified <no-reply@sendcertified.co>", ["charlie.weems@gmail.com"])
 
-                send_mail("Order received!", "Thanks for using Sendcertified. Your order number is: " + order_number,
-                    "Sendcertified <no-reply@sendcertified.co>", [email['email']])
                 return redirect('/confirmation/' + order_number)
 
             except stripe.error.CardError as e:

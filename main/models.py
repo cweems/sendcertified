@@ -3,6 +3,36 @@ from django.db import models
 from django.contrib.auth.models import User
 from tinymce.models import HTMLField
 
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
+
+
+def send_order_printed(email, order_number):
+    print(email, order_number)
+    msg_plain = render_to_string('emails/order_printed/message_body.txt', {'order_number': order_number})
+    msg_html = render_to_string('emails/order_printed/message_body.html', {'order_number': order_number})
+
+    send_mail(
+        'Sendcertified Order Printed',
+        msg_plain,
+        'no-reply@sendcertified.co',
+        [email],
+        html_message=msg_html,
+    )
+
+def send_order_delivered(email, order_number, tracking_number):
+    print(email, order_number)
+    msg_plain = render_to_string('emails/order_delivered/message_body.txt', {'order_number': order_number, 'tracking_number': tracking_number})
+    msg_html = render_to_string('emails/order_delivered/message_body.html', {'order_number': order_number, 'tracking_number': tracking_number})
+
+    send_mail(
+        'Sendcertified Order Printed',
+        msg_plain,
+        'no-reply@sendcertified.co',
+        [email],
+        html_message=msg_html,
+    )
+
 class MailOrder(models.Model):
     class Meta:
         app_label = 'main'
@@ -45,9 +75,9 @@ class MailOrder(models.Model):
         try:
             current_order = MailOrder.objects.get(pk=self.id)
             if current_order.printed == False and self.printed == True:
-                print('Sending printed notification')
+                send_order_printed(self.email, self.order_number)
             if current_order.delivered_to_post_office == False and self.delivered_to_post_office == True:
-                print('Sending delivery notification')
+                send_order_delivered(self.email, self.order_number, self.usps_confirmation_number)
         except:
             pass
         super(MailOrder, self).save()

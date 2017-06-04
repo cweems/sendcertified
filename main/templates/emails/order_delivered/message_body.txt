@@ -1,0 +1,12 @@
+Your Sendcertified order was delivered to the U.S. Postal Service.
+
+Your USPS tracking number is {{ tracking_number }}.
+
+Use your USPS tracking number to check the progress of your letter. It should be delivered in 3-5 days. Track progress at https://tools.usps.com/go/TrackConfirmAction?tLabels={{ tracking_number }}. It may take a few hours for your tracking number to appear in the USPS system.
+If your recipient refuses to sign, your letter will be returned to your return address.
+
+Thanks again for using Sendcertified!
+
+Sincerely,
+
+The Sendcertified Team

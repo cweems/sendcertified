@@ -117,3 +117,35 @@ hr.homepage-divider {
 .home-input {
   margin-bottom: 0;
 }
+
+.tinymce-wrapper {
+  padding: 0;
+}
+
+.tinymce-header {
+  margin-bottom: 0;
+  border-radius: 2px 2px 0px 0px !important;
+}
+
+.mce-tinymce.mce-container.mce-panel {
+   border-width: 0px !important;
+}
+
+.nav-pills {
+  box-shadow: 0 8px 17px 0 rgba(0,0,0,.2), 0 6px 20px 0 rgba(0,0,0,.19);
+  padding: 10px;
+  background-color: 4285F4;
+  border-radius: 2px;
+}
+
+.nav>li>a:focus, .nav>li>a:hover {
+  background-color: unset;
+}
+
+.nav-pills>li>a {
+  color: #fff;
+}
+
+.nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+}

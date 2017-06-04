@@ -1,0 +1,7 @@
+Your Sendcertified order has been printed. We'll deliver it to the post office within one business day.
+
+You can track your order by visiting https://www.sendcertified.co/confirmation/{{ order_number }}
+
+Sincerely,
+
+The Sendcertified Team
