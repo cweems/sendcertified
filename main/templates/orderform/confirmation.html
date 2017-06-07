@@ -43,7 +43,7 @@
               <p><strong>To:</strong> {{order.recipient_locality}}, {{order.recipient_state}}</p>
               <p><strong>Estimated Delivery to USPS:</strong> Next business day</p>
               <p><strong>Sendcertified confirmation number:</strong> {{order.order_number}}</p>
-              <p><strong>USPS Tracking Number:</strong> Pending</p>
+              <p><strong>USPS Tracking Number:</strong> {% if order.usps_confirmation_number %} {{order.usps_confirmation_number}} {% else %} Pending {% endif %}</p>
               <p><strong>Cost:</strong> $9.61</p>
           </div>
         </div>
