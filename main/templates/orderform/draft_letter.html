@@ -22,7 +22,20 @@
       <div class="tab-pane fade active in" id="panel1" role="tabpanel" aria-expanded="true">
         <div class="card">
             <div class="card-block">
-              Dropzone
+              <div class="dropzone-wrapper">
+                <input type="file" class="hidden-file" id="file_input"/>
+                <label for="file_input" class="dropzone" id="status">
+                  <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>
+                  Drop files here or click to upload.
+                </label>
+              </div>
+              <form action='upload-letter' method="post" id="pdf-upload">
+                {% csrf_token %}
+                {{ pdf_uploader.as_p }}
+                <div class="text-center">
+                  <button type="submit" class="btn btn-lg btn-primary">Next: Contact Information</button>
+                </div>
+              </form>
             </div>
         </div>
       </div>
@@ -32,7 +45,7 @@
       <div class="tab-pane fade" id="panel2" role="tabpanel" aria-expanded="false">
         <div class="card">
             <div class="card-block tinymce-wrapper">
-              <form id="initial_address" action="/draft-letter" method="post">
+              <form action="/draft-letter" method="post">
                 {% csrf_token %}
                 {% render_field form.letter %}
                 <div class="text-center">

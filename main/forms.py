@@ -43,14 +43,11 @@ class DocumentEditor(forms.ModelForm):
             'letter',
         ]
 
-class AddressDetails(forms.ModelForm):
+class DocumentUploader(forms.ModelForm):
     class Meta:
         model = MailOrder
         fields = [
-            'sender_name',
-            'sender_unit',
-            'recipient_name',
-            'recipient_unit',
+            'pdf_letter_url'
         ]
 
 class OrderEmail(forms.ModelForm):

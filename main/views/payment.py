@@ -27,12 +27,15 @@ def payment(request):
                 #)
 
                 cleaned_address = request.session['cleaned_address']
-                letter = request.session['letter']
-                email = request.session.get('email', None)
+                letter = request.session.get('letter', None)
+                pdf_url = request.session.get('pdf_url', None)
 
                 if request.user.is_authenticated():
                     user = User.objects.get(id=request.user.id)
+                    email = user.username
                 else:
+                    session_email = request.session.get('email', None)
+                    email = session_email['email']
                     user = None
 
                 order = MailOrder(
@@ -56,15 +59,16 @@ def payment(request):
                     recipient_name=cleaned_address['recipient_name'],
                     recipient_unit=cleaned_address['recipient_unit'],
 
-                    letter=letter['letter'],
+                    letter=letter,
+                    pdf_letter_url=pdf_url,
 
-                    email=email['email'],
+                    email=email,
                     payment_received=False,
 
                 )
                 order.save()
                 order_number = str(order.order_number)
-                send_confirmation(email['email'], order_number)
+                send_confirmation(email, order_number)
                 send_mail("We received a new order!", "The order number is: " + order_number,
                     "Sendcertified <no-reply@sendcertified.co>", ["charlie.weems@gmail.com"])
 
@@ -112,6 +116,7 @@ def payment(request):
 
     cleaned_address = request.session.get('cleaned_address', None)
     letter = request.session.get('letter', None)
+    pdf_upload = request.session.get('pdf_url', None)
 
     if request.user.is_authenticated():
         user = User.objects.get(id=request.user.id)
@@ -120,7 +125,7 @@ def payment(request):
     else:
         email = request.session.get('email', None)
 
-    return render(request, 'orderform/payment.html', {'cleaned_address': cleaned_address, 'letter': letter, 'email': email, 'payment_form': form})
+    return render(request, 'orderform/payment.html', {'cleaned_address': cleaned_address, 'letter': letter, 'pdf_upload': pdf_upload, 'email': email, 'payment_form': form})
 
 
 def confirmation(request, uuid):

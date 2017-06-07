@@ -21,6 +21,17 @@
     <div class="card">
         <h3 class="card-header primary-color white-text">Review Order</h3>
         <div class="card-block">
+          <div class="row">
+            <div class="col-md-6">
+              <p>Delivery to USPS:</p>
+              <h4>Next business day</h4>
+            </div>
+            <div class="col-md-6">
+              <p>Delivery to recipient:</p>
+              <a href="https://ribbs.usps.gov/modernservicestandards/ssmaps/find_map.cfm" target="_blank"><h4>2-5 business days</h4></a>
+            </div>
+          </div>
+          <hr>
           <p>Confirmation email:</p>
           {% if user.is_authenticated %}
             <h4>{{email}}</h4>
@@ -28,31 +39,40 @@
             <h4>{{email.email}}</h4>
           {% endif %}
           <hr>
-          <p>From:</p>
-          <h4>{{cleaned_address.sender_name}}</h4>
-          {% if cleaned_address.sender_unit %}
-            <h4>{{cleaned_address.sender_unit}}</h4>
-          {% endif %}
-          <h4>{{cleaned_address.sender_street_number}} {{cleaned_address.sender_route}}</h4>
-          <h4>{{cleaned_address.sender_locality}}, {{cleaned_address.sender_state}} {{cleaned_address.sender_postal_code}}</h4>
-          <hr>
-          <p>To:</p>
-          <h4>{{cleaned_address.recipient_name}}</h4>
-          {% if cleaned_address.recipient_unit %}
-            <h4>{{cleaned_address.recipient_unit}}</h4>
-          {% endif %}
-          <h4>{{cleaned_address.recipient_street_number}} {{cleaned_address.recipient_route}}</h4>
-          <h4>{{cleaned_address.recipient_locality}}, {{cleaned_address.recipient_state}} {{cleaned_address.recipient_postal_code}}</h4>
+          <div class="row">
+            <div class="col-md-6">
+              <p>From:</p>
+              <h4>{{cleaned_address.sender_name}}</h4>
+              {% if cleaned_address.sender_unit %}
+                <h4>{{cleaned_address.sender_unit}}</h4>
+              {% endif %}
+              <h4>{{cleaned_address.sender_street_number}} {{cleaned_address.sender_route}}</h4>
+              <h4>{{cleaned_address.sender_locality}}, {{cleaned_address.sender_state}} {{cleaned_address.sender_postal_code}}</h4>
+            </div>
+            <div class="col-md-6">
+              <p>To:</p>
+              <h4>{{cleaned_address.recipient_name}}</h4>
+              {% if cleaned_address.recipient_unit %}
+                <h4>{{cleaned_address.recipient_unit}}</h4>
+              {% endif %}
+              <h4>{{cleaned_address.recipient_street_number}} {{cleaned_address.recipient_route}}</h4>
+              <h4>{{cleaned_address.recipient_locality}}, {{cleaned_address.recipient_state}} {{cleaned_address.recipient_postal_code}}</h4>
+            </div>
+          </div>
           <hr>
           <p>Message:</p>
-          <h4>{{letter.letter|safe}}</h4>
+          {% if pdf_upload != 'None' %}
+            <a href="{{pdf_upload.pdf_letter_url}}" target="_blank" class="btn btn-lg btn-primary">Preview Document</a>
+          {% else %}
+            <h4>{{letter.letter|safe}}</h4>
+          {% endif %}
         </div>
     </div>
     <!--/.Panel-->
   </div>
   <div class="col-md-6">
     <div class="card">
-        <h3 class="card-header primary-color white-text"><i class="glyphicon glyphicon-lock"></i> Secure Payment</h3>
+        <h3 class="card-header default-color white-text"><i class="glyphicon glyphicon-lock"></i> Secure Payment</h3>
         <div class="card-block">
           <table class="table table-hover">
               <thead>
@@ -90,7 +110,7 @@
             </div>
             <br>
             <div class="form-row text-center">
-              <button class="btn btn-lg btn-primary">Submit Payment</button>
+              <button class="btn btn-lg btn-default">Submit Payment</button>
             </div>
           </form>
         </div>

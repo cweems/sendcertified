@@ -62,7 +62,8 @@ class MailOrder(models.Model):
 
     #Step 3: Message
 
-    letter = HTMLField()
+    letter = HTMLField(blank=True, null=True)
+    pdf_letter_url = models.CharField(max_length=1000, blank=True, null=True)
 
     #Step 4: Payment & Delivery
     email = models.CharField(max_length=200)
