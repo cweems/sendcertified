@@ -1,6 +1,7 @@
 from django.conf.urls import url, include
 from django.views.generic.edit import CreateView
 from django.contrib.auth.forms import UserCreationForm
+from django.views.generic import TemplateView
 
 from . import views
 
@@ -22,5 +23,6 @@ urlpatterns = [
             success_url='/'
     )),
     url(r'^accounts/', include('registration.backends.simple.urls')),
-    url(r'^accounts/profile/$', views.profile, name='profile')
+    url(r'^accounts/profile/$', views.profile, name='profile'),
+    url(r'^privacy$', TemplateView.as_view(template_name='privacy.html'), name="privacy")
 ]
