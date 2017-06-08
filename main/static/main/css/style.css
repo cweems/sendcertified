@@ -172,3 +172,9 @@ hr.homepage-divider {
 	position: absolute;
 	z-index: -1;
 }
+
+#mceu_0 * {
+  color: #fff;
+  background-color: #00b16a;
+  border-radius: 2px;
+}

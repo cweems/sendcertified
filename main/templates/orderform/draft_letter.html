@@ -10,10 +10,10 @@
     <!--Panel-->
     <ul class="nav nav-pills nav-justified" role="tablist">
         <li class="nav-item active">
-            <a class="nav-link" data-toggle="tab" href="#panel1" role="tab" aria-expanded="true"><h4><span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Upload PDF</h4></a>
+            <a class="nav-link" data-toggle="tab" href="#panel1" role="tab" aria-expanded="true"><h4><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Custom Letter</h4></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#panel2" role="tab" aria-expanded="false"><h4><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Custom Letter</h4></a>
+            <a class="nav-link" data-toggle="tab" href="#panel2" role="tab" aria-expanded="false"><h4><span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Upload PDF</h4></a>
         </li>
     </ul>
     <div class="tab-content">
@@ -21,22 +21,15 @@
       <!--Panel 1-->
       <div class="tab-pane fade active in" id="panel1" role="tabpanel" aria-expanded="true">
         <div class="card">
-            <div class="card-block">
-              <div class="dropzone-wrapper">
-                <input type="file" class="hidden-file" id="file_input"/>
-                <label for="file_input" class="dropzone" id="status">
-                  <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>
-                  Drop files here or click to upload.
-                </label>
+          <div class="card-block tinymce-wrapper">
+            <form action="/draft-letter" method="post">
+              {% csrf_token %}
+              {% render_field form.letter %}
+              <div class="text-center">
+                <button type="submit" class="btn btn-lg btn-primary">Next: Contact Information</button>
               </div>
-              <form action='upload-letter' method="post" id="pdf-upload">
-                {% csrf_token %}
-                {{ pdf_uploader.as_p }}
-                <div class="text-center">
-                  <button type="submit" class="btn btn-lg btn-primary">Next: Contact Information</button>
-                </div>
-              </form>
-            </div>
+            </form>
+          </div>
         </div>
       </div>
       <!--/.Panel 1-->
@@ -44,15 +37,23 @@
       <!--Panel 2-->
       <div class="tab-pane fade" id="panel2" role="tabpanel" aria-expanded="false">
         <div class="card">
-            <div class="card-block tinymce-wrapper">
-              <form action="/draft-letter" method="post">
-                {% csrf_token %}
-                {% render_field form.letter %}
-                <div class="text-center">
-                  <button type="submit" class="btn btn-lg btn-primary">Next: Contact Information</button>
-                </div>
-              </form>
+
+          <div class="card-block">
+            <div class="dropzone-wrapper">
+              <input type="file" class="hidden-file" id="file_input"/>
+              <label for="file_input" class="dropzone" id="status">
+                <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>
+                Drop files here or click to upload.
+              </label>
             </div>
+            <form action='upload-letter' method="post" id="pdf-upload">
+              {% csrf_token %}
+              {{ pdf_uploader.as_hidden }}
+              <div class="text-center">
+                <button type="submit" class="btn btn-lg btn-primary">Next: Contact Information</button>
+              </div>
+            </form>
+          </div>
         </div>
         <!--/.Panel-->
       </div>

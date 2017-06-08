@@ -27,6 +27,7 @@
   }
 
   function uploadFile(file, s3Data, url){
+    $('label.dropzone').html('Uploading...')
     var xhr = new XMLHttpRequest();
     xhr.open("POST", s3Data.url);
 
@@ -40,7 +41,7 @@
       if(xhr.readyState === 4){
         if(xhr.status === 200 || xhr.status === 204){
           var cleanUrl = encodeURI(url);
-
+          $('label.dropzone').html('File uploaded.');
           document.getElementById("id_pdf_letter_url").value = cleanUrl;
         }
         else{

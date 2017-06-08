@@ -85,4 +85,4 @@ class MailOrder(models.Model):
 
 
     def __str__(self):
-        return '%s %s' % (self.sender_name, self.recipient_name)
+        return '%s -> %s' % (self.sender_name, self.recipient_name)

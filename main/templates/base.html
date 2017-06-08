@@ -11,9 +11,9 @@
       <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
       <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
       <link rel="stylesheet" type="text/css" href="{% static 'main/css/mdb.min.css' %}" />
-      <link rel="stylesheet" type="text/css" href="{% static 'main/css/style.css' %}" />
       <script src="{% static 'main/js/tinymce/tinymce.min.js' %}"></script>
       <script type="text/javascript" src="{% static 'main/js/tinymce/custom.js' %}" ></script>
+      <link rel="stylesheet" type="text/css" href="{% static 'main/css/style.css' %}" />
     </head>
     <body>
       <header>
@@ -31,7 +31,7 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul class="nav navbar-nav navbar-right">
                 {% if user.is_authenticated %}
-                  <li><a href="/accounts/profile/">{{user.username}}</a></li>
+                  <li><p class="navbar-text">{{user.username}}</p></li>
                   <li><a href="/accounts/profile/">Account</a></li>
                   <li><a href="/logout">Logout</a></li>
                 {% else %}
@@ -68,5 +68,26 @@
       ga('create', 'UA-100146599-1', 'auto');
       ga('send', 'pageview');
 
+    </script>
+    <script type="text/javascript">
+        adroll_adv_id = "O74IIHMK4VF3XN6M5Z3E42";
+        adroll_pix_id = "FLUPZ6AVZVHZRNLOVIXQAM";
+        /* OPTIONAL: provide email to improve user identification */
+        /* adroll_email = "username@example.com"; */
+        (function () {
+            var _onload = function(){
+                if (document.readyState && !/loaded|complete/.test(document.readyState)){setTimeout(_onload, 10);return}
+                if (!window.__adroll_loaded){__adroll_loaded=true;setTimeout(_onload, 50);return}
+                var scr = document.createElement("script");
+                var host = (("https:" == document.location.protocol) ? "https://s.adroll.com" : "http://a.adroll.com");
+                scr.setAttribute('async', 'true');
+                scr.type = "text/javascript";
+                scr.src = host + "/j/roundtrip.js";
+                ((document.getElementsByTagName('head') || [null])[0] ||
+                    document.getElementsByTagName('script')[0].parentNode).appendChild(scr);
+            };
+            if (window.addEventListener) {window.addEventListener('load', _onload, false);}
+            else {window.attachEvent('onload', _onload)}
+        }());
     </script>
 </html>
