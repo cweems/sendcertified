@@ -119,7 +119,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 ANYMAIL = {
     # (exact settings here depend on your ESP...)
-    "MAILGUN_API_KEY": "key-4cbf584c0ac09dd56308b3b431b7dc9b",
+    "MAILGUN_API_KEY": os.environ.get("MAILGUN_API_KEY"),
     "MAILGUN_SENDER_DOMAIN": 'mg.sendcertified.co',  # your Mailgun domain, if needed
 }
 EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"  # or sendgrid.EmailBackend, or...
