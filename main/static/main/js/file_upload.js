@@ -45,6 +45,7 @@
           document.getElementById("id_pdf_letter_url").value = cleanUrl;
         }
         else{
+          console.log(xhr);
           alert("Could not upload file.");
         }
         console.log(xhr);

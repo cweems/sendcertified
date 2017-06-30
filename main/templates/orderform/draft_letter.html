@@ -43,12 +43,12 @@
               <input type="file" class="hidden-file" id="file_input"/>
               <label for="file_input" class="dropzone" id="status">
                 <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>
-                Drop files here or click to upload.
+                Click here to upload.
               </label>
             </div>
-            <form action='upload-letter' method="post" id="pdf-upload">
+            <form action='/upload-letter' method="post" id="pdf-upload">
               {% csrf_token %}
-              {{ pdf_uploader.as_hidden }}
+              {{ pdf_uploader.as_p }}
               <div class="text-center">
                 <button type="submit" class="btn btn-lg btn-primary">Next: Contact Information</button>
               </div>
