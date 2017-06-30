@@ -44,7 +44,7 @@ class DocumentEditor(forms.ModelForm):
         ]
 
 class DocumentUploader(forms.Form):
-    pdf_letter_url = forms.CharField(max_length=100, required=False, widget=forms.HiddenInput())
+    pdf_letter_url = forms.CharField(max_length=800, required=False, widget=forms.HiddenInput())
 
 class OrderEmail(forms.ModelForm):
     class Meta:
