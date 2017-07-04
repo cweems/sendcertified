@@ -182,3 +182,11 @@ hr.homepage-divider {
 .blog-post {
   font-size: 18px;
 }
+
+.blog-post ul li {
+    list-style-type: disc;
+}
+
+.blog-post ul {
+    padding-left: 40px;
+}
