@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags %}
+
+{% block body_class %}template-blogindexpage{% endblock %}
+
+{% block content %}
+
+  <div class="col-lg-8 col-lg-offset-2">
+    <h1>{{ page.title }}</h1>
+
+    <h3 class="intro">{{ page.intro }}</h3>
+    <hr>
+    <main class="blog-post">
+
+      {{ page.body|richtext }}
+
+    </main>
+
+  </div>
+
+{% endblock %}

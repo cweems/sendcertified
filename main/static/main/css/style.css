@@ -178,3 +178,7 @@ hr.homepage-divider {
   background-color: #00b16a;
   border-radius: 2px;
 }
+
+.blog-post {
+  font-size: 18px;
+}
